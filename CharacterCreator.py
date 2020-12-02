@@ -32,24 +32,26 @@ import shutil
 #create character
 def create():
 	#ask for character name
-	firstname = raw_input('Characters first name:')
+	firstname = input('Characters first name: ')
 	
 	#confirm the name
-	print 'Type Y to confirm the name is', firstname
-	correct = raw_input()
+	print('Type Y to confirm the name is', firstname)
+	correct = input()
 	
-	if correct == "Y":
+	if correct == "Y" or correct == "y":
 		filename = firstname + ".txt"
 		
 		#check if there already is a file with that name?
-		#copies base file and renames with character name
-		#could maybe use UNIX commands here (find, copy, rename)
+		
+		#creates file and copies contents of base file
 		open(filename, 'a').close()
-		print shutil.copy('Characterbase.txt', filename)	
+		copycontent = shutil.copy('Characterbase.txt', filename)
+		print('File', filename, 'created!')
 		
 	else:
-		create( )
-		
+		create()
+	
+#modify character
 def modify():
 	#ask for character name
 	firstname = raw_input('Characters first name:')
@@ -88,7 +90,8 @@ def deletecharacter():
 
 		#If Y pressed, delete file (UNIX delete)
 		if correct == "Y":
-		#delete
+			#delete
+			os.remove(filename)
 		
 	else:
 		print 'Error: File not found', filename
@@ -96,4 +99,4 @@ def deletecharacter():
 	
 def listallCharacters():
 	#lists out all file names
-	#find all files in folder and print out names
+	#os.listdir(mainpath)
