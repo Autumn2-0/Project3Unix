@@ -14,13 +14,12 @@ import shutil
 #	deletecharacter - delete a character
 #	listallCharacters - lists all character files
 
-#class CharacterCreator:
-#Remember to implement a way so it reads from directory of program
-#Make a folder for characters?
 
-#Maybe first do a command to find the base file
+#Remember to implement a way so it reads from directory of program
+
+#First do a command to find the base file
 #Start search at home
-#Then make current dir the dir it is found in 
+#Then make current dir equal to the found directory 
 
 #changechactername - os.rename
 
@@ -38,14 +37,14 @@ def create():
 	correct = input()
 	
 	if correct == "Y" or correct == "y":
-		filename = firstname + ".txt"
+		filename = "Characters/" + firstname + ".txt"
 		
 		#check if there already is a file with that name?
 		
 		#creates file and copies contents of base file
 		open(filename, 'a').close()
 		copycontent = shutil.copy('Characterbase.txt', filename)
-		print('File', filename, 'created!')
+		print('File', firstname + ".txt", 'created!')
 		
 	else:
 		create()
@@ -53,8 +52,8 @@ def create():
 #modify character
 def modify():
 	#ask for character name
-	firstname = raw_input('Characters first name:')
-	filename = firstname + ".txt";
+	firstname = input('Characters first name:')
+	filename = "Characters/" + firstname + ".txt";
 	
 	#searches for file
 	if os.path.exists(filename):
@@ -71,15 +70,16 @@ def modify():
 		print('End of the file reached')
 		
 		#close file
+		charfile.close()
 		
 	else:
-		print('Error: File not found', filename)
+		print('Error: File not found', firstname + ".txt")
 
 #delete character
 def deletecharacter():
 	#ask for character name
 	firstname = input('Characters first name:')
-	filename = firstname + ".txt";
+	filename = "Characters/" + firstname + ".txt";
 	
 	#searches for file
 	if os.path.exists(filename):
@@ -92,14 +92,15 @@ def deletecharacter():
 		if correct == "Y" or correct == "y":
 			#delete
 			os.remove(filename)
+			print(firstname + ".txt", 'has been deleted.')
 		
 	else:
-		print('Error: File', filename, 'not found')
+		print('Error: File', firstname + ".txt", 'not found')
 	
 def listallCharacters():
 	#lists out all file names
 	directory = os.getcwd()
-	print(os.listdir(directory))
+	print(os.listdir(directory + '/Characters'))
 	
 #prints the options
 def printOptions():
