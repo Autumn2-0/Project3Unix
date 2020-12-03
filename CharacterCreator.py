@@ -27,6 +27,41 @@ import shutil
 # print os.getcwd() - current work directory
 # os.system() - use a shell command move to correct dir?
 
+#information of modify commands
+def help():
+	print('add = add information to the end of the line')
+	print('replace = change information already in place')
+	print('erase = get rid of the entire line')
+	print('skip = leave line as is')
+	
+
+#modifys the .txt file through strings
+def lineeditor(line):
+	
+	print('Current information:', line)
+	option = input('What action would you like to perform? (Enter add, replace, erase, skip, or help for more information)')
+	#add
+	if(option == "add"):
+		add = input('Type what you would like to add:')
+		add += '\n'
+		
+		line.replace('\n', '')
+		line += add
+
+		#may need to add a new line
+		print('Line now reads', line)
+	
+	elif(option == "replace"):
+		change1 = input('Type the word you would like to change:')
+		change2 = input('Type the word you like to replace it with:')
+		line.replace(change1, change2)
+		print('Line now reads', line)
+		
+	#delete
+	#replace
+	#erase
+	#(add, delete, replace, erase)
+
 #create character
 def create():
 	#ask for character name
@@ -57,9 +92,49 @@ def modify():
 	
 	#searches for file
 	if os.path.exists(filename):
+		
+		#saves line to some container
+		#words are written 
+		
+		#Create temporary file
+		#append all lines to another file while reading/writing
+		#then at the end, copy over and delete the temporary file
+		
+		#if there is already text,
+		#save a particular line below [#] line to a string
+		#in a while loop - selection != enter or something
+		#print the string and input what you may want to delete or add
+		#something like - edit = input('What would you like to do? (add, delete, replace, erase))
+		#Use a corresponding command to go to another def
+		
+
+		filelines = []                             	 # Create empty list
+		with open (filename, 'rt') as characterfile: # Open .txt file
+			for fileline in characterfile:           # Store each line in list
+				filelines.append(fileline)           
+			
+			#Then go though a for loop for each section of the list
+			for x in filelines:
+		
+				#If a list element does not start with [#], it is editable
+				if x[0] == '[' and x[1].isdigit() and x[2] == ']':
+					print(x)
+				
+				else:
+					#is editable
+					lineeditor(x)
+					#print(x)
+				
+
+		#If a list element does not start with [#], it is editable
+		#append back to file???
+		
+		#delete
+			#word = input('Word you would like to delete')
+			#word.replace(wordA, '')
+			
+		#replace - word.replace(wordA, nowWordB)
 	
-		#opens file if file exists
-		charfile = open(filename, 'w') 
 	
 		#reads off lines with [#]
 		#displays what is already written too - this needs to be editable
@@ -70,7 +145,7 @@ def modify():
 		print('End of the file reached')
 		
 		#close file
-		charfile.close()
+		characterfile.close()
 		
 	else:
 		print('Error: File not found', firstname + ".txt")
