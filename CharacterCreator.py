@@ -32,7 +32,7 @@ def help():
 	print('add = add information to the end of the line')
 	print('replace = change information already in place')
 	print('erase = get rid of the entire line')
-	print('skip = leave line as is')
+	print('skip = leave line as is\n')
 	
 
 #modifys the .txt file through strings
@@ -40,22 +40,37 @@ def lineeditor(line):
 	
 	print('Current information:', line)
 	option = input('What action would you like to perform? (Enter add, replace, erase, skip, or help for more information)')
-	#add
-	if(option == "add"):
-		add = input('Type what you would like to add:')
-		add += '\n'
-		
-		line.replace('\n', '')
-		line += add
-
-		#may need to add a new line
-		print('Line now reads', line)
 	
-	elif(option == "replace"):
-		change1 = input('Type the word you would like to change:')
-		change2 = input('Type the word you like to replace it with:')
-		line.replace(change1, change2)
-		print('Line now reads', line)
+	if(option != 'skip'):
+		if(option == "add"):
+			add = input('Type what you would like to add:')
+			add += '\n'
+			
+			line.replace('\n', '')
+			line += add
+
+			#may need to add a new line
+			print('Line now reads:', line)
+
+		elif(option == "replace"):
+			change1 = input('Type the word you would like to change:')
+			change2 = input('Type the word you like to replace it with:')
+			line.replace(change1, change2)
+			print('Line now reads:', line)
+			
+		elif(option == "erase"):
+			line ='\n'
+			print('Line is now erased')
+
+		elif(option == "help"):
+			help()
+			lineeditor(line)
+			
+		complete = input('Are you done with your edits? (Type N or n to continue)')
+		if(complete == 'n' or complete == 'N'):
+			lineeditor(line)
+	
+		
 		
 	#delete
 	#replace
