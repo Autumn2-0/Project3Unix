@@ -34,48 +34,71 @@ def help():
 	print('erase = get rid of the entire line')
 	print('skip = leave line as is\n')
 	
+def complete(vertify):
+	vertify = input('Are you done with your edits? (Type Yes or No)')
+	
+	if(vertify == 'Yes' or vertify == 'No'):
+		return vertify
+		
+	else:
+		vertify = complete(vertify)
 
-#modifys the .txt file through strings
+	
+
+#modifies the .txt file through strings
 def lineeditor(line):
 	
 	print('Current information:', line)
 	option = input('What action would you like to perform? (Enter add, replace, erase, skip, or help for more information)')
+	line = line.replace('\n', '')
 	
-	if(option != 'skip'):
-		if(option == "add"):
-			add = input('Type what you would like to add:')
-			add += '\n'
+	#adds words
+	if(option == "add"):
+		
+		if(line == " "):
+			line = input('Type what you would like to add:')
 			
-			line.replace('\n', '')
-			line += add
+		else:
+			line += input('Type what you would like to add:')
 
-			#may need to add a new line
-			print('Line now reads:', line)
-
-		elif(option == "replace"):
-			change1 = input('Type the word you would like to change:')
-			change2 = input('Type the word you like to replace it with:')
-			line.replace(change1, change2)
-			print('Line now reads:', line)
-			
-		elif(option == "erase"):
-			line ='\n'
-			print('Line is now erased')
-
-		elif(option == "help"):
-			help()
-			lineeditor(line)
-			
-		complete = input('Are you done with your edits? (Type N or n to continue)')
-		if(complete == 'n' or complete == 'N'):
-			lineeditor(line)
+		#may need to add a new line
+		print('Line now reads:', line)
 	
+	#replaces info
+	elif(option == "replace"):
+		change1 = input('Type what you would like to change:')
+		change2 = input('Type what you like to replace it with:')
+		line = line.replace(change1, change2)
+		print('Line now reads:', line)
+	
+	#erases line
+	elif(option == "erase"):
+		line = ' '
+		print('Line is now erased')
+
+	#brings up help line
+	elif(option == "help"):
+		help()
+		line = lineeditor(line)
 		
+	elif(option == "skip"):
+		return line
 		
-	#delete
-	#replace
-	#erase
-	#(add, delete, replace, erase)
+	else:
+		print('You did not enter a valid command.')
+		line = lineeditor(line)
+		
+	#asks if user is done
+	done = " "
+	done = complete(done)
+	
+	if(done == 'No'):
+		line = lineeditor(line)
+	
+	else:
+		return line
+		
+
 
 #create character
 def create():
@@ -108,59 +131,37 @@ def modify():
 	#searches for file
 	if os.path.exists(filename):
 		
-		#saves line to some container
-		#words are written 
-		
-		#Create temporary file
-		#append all lines to another file while reading/writing
-		#then at the end, copy over and delete the temporary file
-		
-		#if there is already text,
-		#save a particular line below [#] line to a string
-		#in a while loop - selection != enter or something
-		#print the string and input what you may want to delete or add
-		#something like - edit = input('What would you like to do? (add, delete, replace, erase))
-		#Use a corresponding command to go to another def
-		
-
 		filelines = []                             	 # Create empty list
 		with open (filename, 'rt') as characterfile: # Open .txt file
 			for fileline in characterfile:           # Store each line in list
-				filelines.append(fileline)           
+				filelines.append(fileline)    
 			
 			#Then go though a for loop for each section of the list
+			newlist = []
 			for x in filelines:
 		
 				#If a list element does not start with [#], it is editable
 				if x[0] == '[' and x[1].isdigit() and x[2] == ']':
+					newline = x.replace('\n', '')
+					newlist.append(newline)
 					print(x)
 				
 				else:
 					#is editable
-					lineeditor(x)
-					#print(x)
-				
-
-		#If a list element does not start with [#], it is editable
-		#append back to file???
-		
-		#delete
-			#word = input('Word you would like to delete')
-			#word.replace(wordA, '')
+					newline = lineeditor(x)
+					newlist.append(newline)
+					
+			filelines = newlist
 			
-		#replace - word.replace(wordA, nowWordB)
-	
-	
-		#reads off lines with [#]
-		#displays what is already written too - this needs to be editable
-		#lets user type in or skip
-		#updates as it goes
-	
-		#once end of file reached, say so
-		print('End of the file reached')
+			#once end of file reached, say so
+			print('End of the file reached')
+			characterfile.close()
+			
+		with open (filename, 'w') as newfile:
+			for line in filelines:
+				newfile.write('%s\n' % line)
+			newfile.close()
 		
-		#close file
-		characterfile.close()
 		
 	else:
 		print('Error: File not found', firstname + ".txt")
@@ -219,7 +220,6 @@ def switch_demo(selection):
 
 
 #start of the main function
-
 selection = int(0)
 
 print('Welcome to the Character Creator!')
