@@ -1,1 +1,18 @@
-//.txt file for character base
+[1] Full Name:
+ 
+[2] Age:
+ 
+[3] Gender:
+ 
+[4] Hair/eye color:
+ 
+[5] Personality:
+ 
+[6] Background:
+ 
+[7] Family: 
+ 
+[8] Favorite color:
+  
+[9] Other:
+ 
