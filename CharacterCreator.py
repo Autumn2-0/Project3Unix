@@ -32,7 +32,7 @@ def lineeditor(line):
 	
 	print('Current information:', line)
 	option = input('What action would you like to perform? (Enter add, replace, erase, skip, or help for more information)')
-	line = line.replace('\n', '')
+	line = line.replace('\n', "")
 	
 	#adds words
 	if(option == "add"):
@@ -55,7 +55,7 @@ def lineeditor(line):
 	
 	#erases line
 	elif(option == "erase"):
-		line = ' '
+		line = " "
 		print('Line is now erased')
 
 	#brings up help line
@@ -69,6 +69,7 @@ def lineeditor(line):
 	else:
 		print('You did not enter a valid command.')
 		line = lineeditor(line)
+		return line
 		
 	#asks if user is done
 	done = " "
