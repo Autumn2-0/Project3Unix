@@ -1,31 +1,14 @@
 #!/usr/bin/env python
 import os
 import shutil
+import sys
 
 #character creator class
 #implements the character creator class
 
-
-#character class - (includes but not limited to)
-#	create - creates character
-#	newCharacteroptions - after new character created
-#	modify - modify character file
-#	changecharactersname - change the name of the character thus changing the file name
-#	deletecharacter - delete a character
-#	listallCharacters - lists all character files
-
-
-#Remember to implement a way so it reads from directory of program
-
-#First do a command to find the base file
-#Start search at home
-#Then make current dir equal to the found directory 
-
-#changechactername - os.rename
-
-
-# print os.getcwd() - current work directory
-# os.system() - use a shell command move to correct dir?
+def findplacement(place):
+	line = place.replace('CharacterCreator.py', '')
+	return line
 
 #information of modify commands
 def help():
@@ -34,6 +17,7 @@ def help():
 	print('erase = get rid of the entire line')
 	print('skip = leave line as is\n')
 	
+#verifies 
 def complete(vertify):
 	vertify = input('Are you done with your edits? (Type Yes or No)')
 	
@@ -42,8 +26,6 @@ def complete(vertify):
 		
 	else:
 		vertify = complete(vertify)
-
-	
 
 #modifies the .txt file through strings
 def lineeditor(line):
@@ -102,6 +84,12 @@ def lineeditor(line):
 
 #create character
 def create():
+	
+	folder = findplacement(sys.argv[0])
+	
+	if(folder != ''):
+		folder += '/'
+	
 	#ask for character name
 	firstname = input('Characters first name: ')
 	
@@ -110,13 +98,13 @@ def create():
 	correct = input()
 	
 	if correct == "Y" or correct == "y":
-		filename = "Characters/" + firstname + ".txt"
+		filename = folder + "Characters/" + firstname + ".txt"
 		
 		#check if there already is a file with that name?
 		
 		#creates file and copies contents of base file
 		open(filename, 'a').close()
-		copycontent = shutil.copy('Characterbase.txt', filename)
+		copycontent = shutil.copy(folder + 'Characterbase.txt', filename)
 		print('File', firstname + ".txt", 'created!')
 		
 	else:
@@ -124,9 +112,15 @@ def create():
 	
 #modify character
 def modify():
+	
+	folder = findplacement(sys.argv[0])
+	
+	if(folder != ''):
+		folder += '/'
+		
 	#ask for character name
 	firstname = input('Characters first name:')
-	filename = "Characters/" + firstname + ".txt";
+	filename = folder + "Characters/" + firstname + ".txt";
 	
 	#searches for file
 	if os.path.exists(filename):
@@ -168,9 +162,15 @@ def modify():
 
 #delete character
 def deletecharacter():
+	
+	folder = findplacement(sys.argv[0])
+	
+	if(folder != ''):
+		folder += '/'
+		
 	#ask for character name
 	firstname = input('Characters first name:')
-	filename = "Characters/" + firstname + ".txt";
+	filename = folder + "Characters/" + firstname + ".txt";
 	
 	#searches for file
 	if os.path.exists(filename):
@@ -188,10 +188,15 @@ def deletecharacter():
 	else:
 		print('Error: File', firstname + ".txt", 'not found')
 	
-def listallCharacters():
+def listallCharacters():	
+	folder = findplacement(sys.argv[0])
+	
+	if(folder != ''):
+		folder += '/'
+		
 	#lists out all file names
-	directory = os.getcwd()
-	print(os.listdir(directory + '/Characters'))
+	directory = folder + "Characters"
+	print(os.listdir(directory))
 	
 #prints the options
 def printOptions():
@@ -216,7 +221,6 @@ def switch_demo(selection):
             5: "Thank you for using the creator!"
 			}
 		return(switcher.get(selection, "Invalid option!"))
-
 
 
 #start of the main function
