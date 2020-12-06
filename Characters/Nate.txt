@@ -1,0 +1,18 @@
+[1] Full Name:
+Nate Territ
+[2] Age:
+15
+[3] Gender:
+Male
+[4] Hair/eye color:
+Black/brown
+[5] Personality:
+Nate is a shy, polite teenager who hates being the center of attention. 
+[6] Background:
+He lives with his sister.
+[7] Family: 
+Katie(sister)
+[8] Favorite color:
+Blue
+[9] Other:
+ 

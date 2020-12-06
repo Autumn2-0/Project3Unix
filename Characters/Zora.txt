@@ -1,0 +1,18 @@
+[1] Full Name:
+Zora
+[2] Age:
+16
+[3] Gender:
+Female
+[4] Hair/eye color:
+Blond/blue
+[5] Personality:
+Zora is an analytical introvert who despises working with people.
+[6] Background:
+She grew up in Glacimai, the small town she was orphaned in.
+[7] Family: 
+ 
+[8] Favorite color:
+White
+[9] Other:
+ 
